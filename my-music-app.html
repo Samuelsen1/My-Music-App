@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modern Web Music Player</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="player-app" id="app">
+    <header class="topbar">
+      <h1>Modern Music Player</h1>
+      <div class="controls-left">
+        <button id="open-files" title="Add local files">+ Files</button>
+        <button id="add-url-btn" title="Add URL">+ URL</button>
+        <input id="file-input" type="file" accept="audio/*" multiple hidden />
+      </div>
+      <div class="search-wrap">
+        <input id="playlist-search" placeholder="Search playlist..." aria-label="Search playlist" />
+      </div>
+    </header>
+
+    <section class="player-row">
+      <article class="now-playing">
+        <div class="artwork" id="artwork" aria-hidden="true">
+          <!-- fallback artwork -->
+          <svg viewBox="0 0 64 64" class="artwork-svg" aria-hidden="true">
+            <rect width="100%" height="100%" fill="#2b2b2b"></rect>
+            <text x="50%" y="50%" fill="#ddd" dominant-baseline="middle" text-anchor="middle" font-size="10">MUSIC</text>
+          </svg>
+        </div>
+
+        <div class="track-info">
+          <div class="title" id="track-title">No track selected</div>
+          <div class="artist" id="track-artist"></div>
+
+          <div class="seekbar" id="seekbar" role="slider" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+            <div class="progress" id="progress"></div>
+          </div>
+
+          <div class="time-row">
+            <span id="current-time">0:00</span>
+            <span id="total-time">0:00</span>
+          </div>
+
+          <div class="player-controls">
+            <button id="shuffle-btn" title="Shuffle (S)">🔀</button>
+            <button id="prev-btn" title="Previous (P)">⏮️</button>
+            <button id="play-btn" title="Play/Pause (Space)">▶️</button>
+            <button id="next-btn" title="Next (N)">⏭️</button>
+            <button id="repeat-btn" title="Repeat (R)">🔁</button>
+
+            <div class="volume-control">
+              <button id="mute-btn" title="Mute (M)">🔊</button>
+              <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume"/>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="playlist-pane">
+        <div class="playlist-header">
+          <h2>Playlist</h2>
+          <div class="playlist-actions">
+            <button id="shuffle-toggle" title="Toggle shuffle order">Shuffle</button>
+            <button id="clear-playlist" title="Clear playlist">Clear</button>
+            <button id="export-playlist" title="Export playlist (JSON)">Export</button>
+            <button id="import-playlist" title="Import playlist (JSON)">Import</button>
+            <input id="import-file" type="file" accept="application/json" hidden />
+          </div>
+        </div>
+
+        <ul id="playlist" class="playlist" aria-label="Playlist">
+          <!-- items dynamically injected -->
+        </ul>
+      </aside>
+    </section>
+
+    <footer class="help">
+      <small>
+        Drag & drop audio files onto the player or use "Add files". Use keyboard shortcuts:
+        Space Play/Pause • N Next • P Previous • S Shuffle • R Repeat • M Mute • Arrow keys seek/volume.
+      </small>
+    </footer>
+  </main>
+
+  <audio id="audio" preload="metadata"></audio>
+
+  <script src="player.js" type="module"></script>
+</body>
+</html>
